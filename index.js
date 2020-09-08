@@ -27,6 +27,7 @@ function copy(text, options) {
     options = {};
   }
   debug = options.debug || false;
+  cb = options.cb || null;
   try {
     reselectPrevious = deselectCurrent();
 
@@ -88,9 +89,14 @@ function copy(text, options) {
       success = true;
     } catch (err) {
       debug && console.error("unable to copy using clipboardData: ", err);
-      debug && console.error("falling back to prompt");
+      debug && console.error("falling back to prompt or cb option");
       message = format("message" in options ? options.message : defaultMessage);
-      window.prompt(message, text);
+      if (cb) {
+        cb();
+      }
+      else {
+        window.prompt(message, text);
+      }
     }
   } finally {
     if (selection) {
