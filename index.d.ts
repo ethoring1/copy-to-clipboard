@@ -3,7 +3,7 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>, MartynasZilinskas <https://github.com/MartynasZilinskas>
 
 interface Options {
-  cb?: () => void;
+  fallback?: boolean;
   debug?: boolean;
   message?: string;
   format?: string; // MIME type

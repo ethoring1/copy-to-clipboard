@@ -90,8 +90,9 @@ function copy(text, options) {
       debug && console.error("unable to copy using clipboardData: ", err);
       debug && console.error("falling back to prompt or cb option");
       message = format("message" in options ? options.message : defaultMessage);
-      if (options.cb) {
-        options.cb();
+      if (!options.fallback) {
+        success = false;
+        throw new Error("copy failed, default prompt fallback is false")
       }
       else {
         window.prompt(message, text);
